@@ -25,4 +25,16 @@ class AccountTest {
         // then
         verify(transactionRepository, times(1)).addDeposit(amount);
     }
+
+    @Test
+    void should_add_withdraw_transaction_when_withdraw() {
+        // given
+        int amount = 100;
+
+        // when
+        account.withdraw(100);
+
+        // then
+        verify(transactionRepository, times(1)).addWithdraw(amount);
+    }
 }
