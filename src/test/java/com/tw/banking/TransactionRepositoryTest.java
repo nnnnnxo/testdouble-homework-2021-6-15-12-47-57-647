@@ -38,4 +38,25 @@ class TransactionRepositoryTest {
 
         );
     }
+
+    @Test
+    void should_add_withdraw_transaction_when_add_withdraw() {
+        // given
+        int amount = 100;
+        int expectAmount = -100;
+        String today = "21/06/2021";
+        when(clock.todayAsString()).thenReturn(today);
+
+        // when
+        transactionRepository.addWithdraw(amount);
+
+        // then
+        List<Transaction> result = transactionRepository.allTransactions();
+        Assertions.assertAll(
+                () -> assertEquals(1, result.size()),
+                () -> assertEquals(today, result.get(0).date()),
+                () -> assertEquals(expectAmount, result.get(0).amount())
+
+        );
+    }
 }
