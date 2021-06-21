@@ -59,4 +59,17 @@ class TransactionRepositoryTest {
 
         );
     }
+
+    @Test
+    void should_un_support_add_transaction_to_returned_transactions_when_get_all_transactions() {
+        // given
+        int amount = 100;
+        String today = "21/06/2021";
+
+        // when
+        List<Transaction> transactions = transactionRepository.allTransactions();
+
+        // then
+        assertThrows(UnsupportedOperationException.class, () -> transactions.add(new Transaction(today, amount)));
+    }
 }
